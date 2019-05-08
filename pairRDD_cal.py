@@ -7,5 +7,5 @@ pairs = lines.map(lambda x: (x.split(" ")[0], x))
 '''
 结果如下：
 ["hello world", "hi"]--->[('hello', 'hello world'), ('hi', 'hi')] 单个字母以自身为键，同时以自身为值
-["hello world", "hi man"]--->[('hello', 'hello world'), ('hi', 'man')]
+["hello world", "hi man"]--->[('hello', 'hello world'), ('hi', 'hi man')]
 '''

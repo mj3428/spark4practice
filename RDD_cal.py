@@ -40,3 +40,5 @@ RDD1.union(RDD2):{coffee,coffee,coffee,panda,monkey,monkey,kitty,tea} \\合并�
 RDD1.intersection(RDD2):{coffee,monkey} \\交集 但是要 混洗操作
 RDD1.subtract(RDD2):{panda,tea} \\差集 混洗操作
 '''
+
+# 注：python的API，所有的函数都实现在基本的RDD类中，如果操作对应的RDD数据类型不正确会导致运行错误

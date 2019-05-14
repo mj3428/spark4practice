@@ -22,3 +22,11 @@ result = words.map(lambda x: (x,1)).reduceByKey(lambda x, y: x + y)
 # \\output:[('hello', 1), ('world', 1), ('hi', 1), ('man', 1)]
 # 当然更快的方式可以尝试
 input.flatMap(x => x.plit(" ")).countByValue()
+
+# 行动操作
+'''
+input:{(1, 2),(3, 4),(3, 6)}
+rdd.countByKey() ---> {(1,1), (3,2)}对建的数量进行计数
+rdd.collectAsMap() ---> Map{(1, 2),(3, 4),(3, 6)} 结果以映射表的形式返回，以便查询
+rdd.lookup(3) ---> [4, 6] 查询键，对应的值的所有组成的列表
+'''

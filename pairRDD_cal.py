@@ -30,3 +30,13 @@ rdd.countByKey() ---> {(1,1), (3,2)}对建的数量进行计数
 rdd.collectAsMap() ---> Map{(1, 2),(3, 4),(3, 6)} 结果以映射表的形式返回，以便查询
 rdd.lookup(3) ---> [4, 6] 查询键，对应的值的所有组成的列表
 '''
+
+# 自定义分区
+import urlparse
+
+def hash_domain(url):
+    return hash(urlparse.urlparse(url).netloc)
+rdd.partitionBy(20, hash_domain) # 创建20个分区
+'''
+在python中不需扩展Partitioner类，而是把一个特定的哈希函数作为一个额外的参数传给RDD.partitionBy()函数
+'''

@@ -23,3 +23,12 @@ def loadRecord(line):
   reader = csv.DictReader(input, fieldnames=["name", "favouriteAnimal"])
   return reader
 fullFileData = sc.wholeTextFiles(inputFile).flatMap(loadRecords)
+
+#写csv 会把结果放到RDD
+def writeRecords(records):
+  output = StringIO.StringIO()
+  writer = csv.DictWriter(output, filenames=["name", "favouriteAnimal"])
+  for record in records:
+    writer.writerow(record)
+  return [output.getvalue()]
+pandaLovers.mapPartitions(writeRecords).saveAsTextFile(outputFile)

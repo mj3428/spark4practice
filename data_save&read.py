@@ -32,3 +32,7 @@ def writeRecords(records):
     writer.writerow(record)
   return [output.getvalue()]
 pandaLovers.mapPartitions(writeRecords).saveAsTextFile(outputFile)
+
+#SequenceFile 是Hadoop的MapReduce的输入输出格式
+val data = sc.sequenceFile(inFile,"org.apache.hadoop.io.Text", "org.apache.hadoop.io.IntWritable")
+

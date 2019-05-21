@@ -16,5 +16,8 @@ def extractCallSigns(line):
 
 callSigns = file.flatMap(extractCallSigns)
 callSigns.saveAsTextFile(outputDir + "/callsigns")
-print "Blank lines: %d" % blankLines.value
-
+print("Blank lines: %d" % blankLines.value)
+'''
+只有在运行saveAsTextFile()行动操作后才能看到正确的计数，因为行动操作前的转化操作flatMap()是惰性的，
+所以作为计算副产品的累加器只有在惰性的转化操作flatMap()被saveAsTextFile()行动操作强制触发时才会开始求值
+'''

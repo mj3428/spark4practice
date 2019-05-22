@@ -92,3 +92,24 @@ countryContactCounts = (contactCounts.map(processSignCount).reduceByKey((lambda 
 如果之后还要再次使用signPrefixes这个对象（可能还要在file2.txt上运行同样的代码），则还需要向每个节点再发送一遍。
 接下来，用广播变量解决
 '''
+# 查询RDD contactCounts中的呼号的对应位置。将呼号前缀
+# 读取国家代码来进行查询
+signPrefixes = sc.broadcast(loadCallSignTable())
+
+def processSignCount(sign_count, signPrefixes):
+  country = lookupCountry(sign_count[0], signPrefixes)
+  count = sign_count[1]
+  return(country, count)
+countryContactCounts = (contactCounts.map(processSignCount).reduceByKey((lambda x, y: x + y)))
+countryContactCounts.saveAsTextFile(outputDir + "/countries.txt")
+'''
+类型为spark.broadcast.Broadcast[T]的一个对象，其中存放着类型为T的值。可以在任务中通过对Broadcst对象调用value来获取该对象的值。
+这个值智慧被发送到各节点一次，使用的是一种高效的类似BitTorrent的通信机制。
+'''
+
+# 广播的优化
+'''
+当广播一个比较大的值时，选择既快又好的序列化格式是很重要的
+python解决方法
+为你的数据类型实现自己的序列化方式，使用reduce()方法为python的pickle库定义自定义的序列化
+'''

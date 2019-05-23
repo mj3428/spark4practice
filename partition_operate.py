@@ -19,3 +19,23 @@ def fetchCallSigns(input):
   '''获取呼号'''
   return input.mapPartitions(lambda callSigns : processCallSigns(callSigns))
 contactsContactList = fetchCallSigns(validSigns)
+
+# 不使用mapPartitions()求均值
+def combineCtrs(c1, c2):
+  return (c1[0] + c2[0], c1[1] + c2[1])
+def basicAvg(nums):
+  '''计算平均值'''
+  nums.map(lambda num: (num, 1)).reduce(combineCtrs)
+# 使用mapPartitions()求均值
+def  partitionCtr(nums):
+  '''计算分区的sumCounter'''
+  sumCount = [0, 0]
+  for num in nums:
+    sumCount[0] += num
+    sumCount[1] += 1
+  return [sumCount]
+def fastAvg(nums):
+  '''计算平均值'''
+  nums.mapPartitions(partitionCtr).reduce(combineCtrs)
+  return sumCount[0] / float(sumCount[1])
+

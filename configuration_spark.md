@@ -10,3 +10,4 @@ conf.set("spark.ui.port", "36000") # 重载默认端口配置
 
 # 使用这个配置对象创建一个SparkContext
 sc = SparkContext(conf)
+```

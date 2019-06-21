@@ -1,7 +1,6 @@
 ## 使用SparkConf配置Spark
 对spark进行性能调优通过SparkConf类对Spark进行配置。  
 ```
-
 # 创建一个conf对象
 conf = new SarkConf()
 conf.set("spark.app.name", "My Spark APP")
@@ -15,7 +14,6 @@ SparkConf实例包含用户要重载的配置选项的键值对。.set()方法�
 spark.app.name和spark.master的配置值。  
 spark-submint工具为常用的spark配置项参数提供了专用的标记，还有一个通用标记 --conf来接收任意spark配置项的值：  
 ```
-
 $ bin/spark-submit
   --class com.example.MyApp
   --master local[4]

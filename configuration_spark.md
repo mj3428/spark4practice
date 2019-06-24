@@ -34,3 +34,4 @@ spark.master local[4]
 spark.app.name "My Spark App"
 spark.ui.port 36000
 ```
+### Spark有特定的优先级顺序，进行配置

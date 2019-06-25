@@ -51,3 +51,5 @@ conf.registerKryoClasses(Array(class0f[MyClass], class0f[MyOtherClass]))
 
 默认情况，Spark会使用60%的空间来存储RDD，20%存储数据混洗操作产生的数据，剩下的20%留给用户程序。
 ## 硬件供给
+在各种部署模式下，执行器节点的内存都可以通过spark.executor.memory配置项或者spark-submit的--executor-memory标记来设置。而
+执行器进程的核心数的配置选项则取决于各种部署模式。

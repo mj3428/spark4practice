@@ -12,4 +12,4 @@ SchemaRDD还包含记录的结构信息（即数据字段）。在SchemaRDD内�
 Apache Hive是Hadoop上的SQL引擎，Spark SQL编译时可以包含Hive支持，也可以不包含。包含Hive支持的SparkSQL可以支持Hive表访问、UDF（用户自定义函数）、
 SerDe（序列化格式和反序列化格式），以及Hive查询语言（HiveQL/HQL）。如果要在SparkSQL中包含HIVE的库，并不需要事先安装HIVE。一般来说，最好
 还是在编译SparkSQL时引入Hive支持，这样就可以使用这些特性了。  
-**注：**如果你的应用于Hive之间发生了依赖冲突，并且无法通过依赖排除以及依赖封装解决问题，你也可以使用没有Hive支持的SparkSQL进行编译和连接。
+**注：** 如果你的应用于Hive之间发生了依赖冲突，并且无法通过依赖排除以及依赖封装解决问题，你也可以使用没有Hive支持的SparkSQL进行编译和连接。

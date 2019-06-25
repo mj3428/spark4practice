@@ -35,3 +35,4 @@ spark.app.name "My Spark App"
 spark.ui.port 36000
 ```
 ### Spark有特定的优先级顺序，进行配置
+优先是在用户代码中显式调用*set()方法*设置的选项。其次是通过*spark-submit*传递的参数,再次是写在*配置文件*中的值，最后是系统的默认值。

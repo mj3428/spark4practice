@@ -13,3 +13,37 @@ Apache Hive是Hadoop上的SQL引擎，Spark SQL编译时可以包含Hive支持�
 SerDe（序列化格式和反序列化格式），以及Hive查询语言（HiveQL/HQL）。如果要在SparkSQL中包含HIVE的库，并不需要事先安装HIVE。一般来说，最好
 还是在编译SparkSQL时引入Hive支持，这样就可以使用这些特性了。  
 **注：** 如果你的应用于Hive之间发生了依赖冲突，并且无法通过依赖排除以及依赖封装解决问题，你也可以使用没有Hive支持的SparkSQL进行编译和连接。
+## 在应用中使用Spark SQL
+### 初始化Spark SQL
+*例：Scala中SQL的import声明*
+```
+//导入Spark SQL
+import org.apache.spark.sql.hive.HiveContext
+//如果不能使用hive依赖的话
+import org.apache.spark.sql.SQLContext
+```
+*例：Scala中SQL需要导入的隐式转换支持*
+```
+// 创建Spark SQL的HiveContext
+val hiveCtx = ...
+//导入隐式转换支持
+import hiveCtx._
+```
+*例：Py中SQL的import声明*
+```
+# 导入Spark SQL
+from pyspark.sql import HiveContext, Row
+# 当不能引入Hive依赖时
+from pysqpark.sql import SQLContext, Row
+```
+添加好import声明后，需要创建出一个HiveContext对象。而如果无法引入Hive依赖，就创建出一个SQLContext对象作为SQL的上下文环境
+*在Scala中创建SQL上下文环境*
+```
+val sc = new SparkContext(...)
+val hiveCtx = new HiveContext(sc)
+```
+*在Py中创建SQL上下文环境*
+```
+hiveCtx = HiveContext(sc)
+```
+有了HiveContext或SQLContext之后，我们就可以准备读取数据并进行查询了

@@ -65,3 +65,37 @@ SchemaRDD topTweets = hiveCtx.sql("""SELECT text, retweetCount FROM tweets ORDER
 ```
 topTweetText = topTweets.map(lambda row: row.text)
 ```
+## 读取数据和存储数据
+### Apache Hive
+要把spark sql连接到已经部署好的Hive上，你需要提供一份Hive配置。你只需要把你的hive-site.xml文件复制到spark的./conf/目录下即可。
+如果你只是想探索一下sparksql而没有配置hive-site.xml文件,那么spark sql会使用本地的Hive元数据仓，并且同样可以轻松地将数据读取到
+Hive表中进行查询。  
+*使用Py从Hive读取*
+```
+from pyspark.sql import HiveContext
+
+hiveCtx = HiveContext(sc)
+rows = hiveCtx.sql("SELECT key, value FROM mytable")
+keys = rows.map(lambda row: row[0])
+```
+### Parquet
+*Py中的Parquet数据读取*
+```
+# 从一个有name和favouriteAnimal字段的Parquet文件中读取数据
+rows = hiveCtx.parquetFile(parquetFile)
+names = rows.map(lambda row: row.name)
+print "Everyone"
+print name.collect()
+```
+*Py中的Parquet数据查询*
+```
+# 寻找熊猫爱好者
+tbl = rows.registerTempTable("people")
+pandasFriends = hiveCtx.sql("SELECT name FROM people WHERE favouriteAnimal = \"panda\")
+print "Panda friends"
+print pandaFriends.map(lambda row: row.name).collect()
+```
+*Py中的Parquet文件保存*
+```
+pandaFriends.saveAsParquetFile("hdfs://...")
+```

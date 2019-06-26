@@ -59,4 +59,5 @@ SchemaRDD topTweets = hiveCtx.sql("""SELECT text, retweetCount FROM tweets ORDER
 ```
 ### SchemaRDD
 从内部机理看，SchemaRDD是一个由Row对象组成的RDD，附带包含每列数据类型的结构信息。Row对象只是对基本数据类型（如整型和字符串类型等）
-的数组的封装。
+的数组的封装。  
+在Py中

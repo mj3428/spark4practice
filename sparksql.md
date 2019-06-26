@@ -36,7 +36,7 @@ from pyspark.sql import HiveContext, Row
 # 当不能引入Hive依赖时
 from pysqpark.sql import SQLContext, Row
 ```
-添加好import声明后，需要创建出一个HiveContext对象。而如果无法引入Hive依赖，就创建出一个SQLContext对象作为SQL的上下文环境
+添加好import声明后，需要创建出一个HiveContext对象。而如果无法引入Hive依赖，就创建出一个SQLContext对象作为SQL的上下文环境  
 *在Scala中创建SQL上下文环境*
 ```
 val sc = new SparkContext(...)

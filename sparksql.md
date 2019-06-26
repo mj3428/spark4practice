@@ -47,3 +47,16 @@ val hiveCtx = new HiveContext(sc)
 hiveCtx = HiveContext(sc)
 ```
 有了HiveContext或SQLContext之后，我们就可以准备读取数据并进行查询了
+### 基本查询示例
+先从JSON文件中读取一些推特数据，把这些数据注册为一张临时表并赋予该表一个名字，然后就可以用SQL来查询它了。  
+*例：在Py中读取并查询推文*
+```
+input = hiveCtx.jsonFile(inputFile)
+# 注册输入的SchemaRDD
+input.registerTempTable("tweets")
+# 依据retweetCount(转发记数)选出推文
+SchemaRDD topTweets = hiveCtx.sql("""SELECT text, retweetCount FROM tweets ORDER BY retweetCount LIMIT 10""")
+```
+### SchemaRDD
+从内部机理看，SchemaRDD是一个由Row对象组成的RDD，附带包含每列数据类型的结构信息。Row对象只是对基本数据类型（如整型和字符串类型等）
+的数组的封装。

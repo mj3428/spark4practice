@@ -99,3 +99,11 @@ print pandaFriends.map(lambda row: row.name).collect()
 ```
 pandaFriends.saveAsParquetFile("hdfs://...")
 ```
+### 基于RDD
+在Py中，可以创建一个由Row对象组成的RDD，然后调用inferSchema()
+*在Py中使用Row和具名元组创建SchemaRDD*
+```
+happyPeopleRDD = sc.parallelize([Row(name="holden", favouriteBeverage="coffee")])
+happyPeopleSchemaRDD = hiveCtx.inferSchema(happyPeopleRDD)
+happyPeopleSchamaRDD.registerTempTable("happy_people")
+```

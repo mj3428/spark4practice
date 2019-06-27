@@ -11,3 +11,4 @@ Spark SQL可以利用其对类型的了解来高效地表示数据。当缓存�
 | spark.sql.inMemoryColumnarStorage.compressed | 默认为false;自动对内存中的列式存储进行压缩 |
 | spark.sql.inMemoryColumnarStorage.batchSize | 默认为1000;列式缓存时的每个批处理的大小。把这个值调大可能会导致内存不够的异常 |
 | spark.sql.paquet.compress.codec | 默认为snappy;使用哪种压缩编码器。可选:uncompressed/snappy/gzip/lzo |
+*注：codec尽量在2秒以上的查询中使用*

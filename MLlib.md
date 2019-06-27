@@ -70,3 +70,40 @@ denseVec2 = Vectors.dense([1.0, 2.0, 3.0]) # 或者使用Vectors类来创建
 sparseVec1 = Vectors.sparse(4, {0: 1.0, 2: 2.0})
 sparseVec2 = Vectors.sparse(4, [0, 2], [1.0, 2.0]})
 ```
+## 算法
+### 特征提取
+*Py中使用HashingTF*
+```
+from pyspark.mllib.feature import HashingTF
+senntence = "hello hello world"
+words = sentence.split() # 将句子切分为一串单词
+tf = HashingTF(10000) # 创建一个向量，其尺寸S = 10000
+tf.transform(words)
+# 结果: SparseVector(10000, {3065: 1.0, 6861: 2.0})
+rdd = sc.wholeTextFiles("data").map(lambda (name, text): text.split())
+tfVectors = tf.transform(rdd) # 整个RDD进行转化操作
+```
+*Py中使用TF-IDF*
+```
+from pyspark.mllib.feature import HashingTF, IDF
+# 将若干文本文件读取为TF向量
+rdd = sc.wholeTextFiles("data").map(lambda (name, text): text.split())
+tf = HashingTF()
+tfVectors = tf.transform(rdd).cache
+
+# 计算IDF，然后计算TF-IDF向量
+idf = IDF()
+idfModel = idf.fit(tfVectors)
+tfIdfVectors = idfModel.transform(tfVectors)
+```
+*Py中缩放向量*
+```
+from pyspark.mllib.feature import StandardScaler
+
+vectors = [Vectors.dense([-2.0, 5.0, 1.0]), Vectors.dense([2.0, 0.0, 1.0])]
+dataset = sc.parallelize(vectors)
+scaler = StandardScaler(withMean=True, withStd=True)
+model = scaler.fit(dataset)
+result = model.transform(dataset)
+# 结果:{[-0.7071, 0.7071, 0.0], [0.7071, -0.7071, 0.0]}
+```

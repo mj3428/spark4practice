@@ -49,4 +49,24 @@ print "Prediction for negative test example: %g" % model.predic(negTest)
 * Rating  
   用户对一个产品的评分，在mllib.recommendation包中，用于产品推荐  
 * 各种model类
-  每个Model都是训练算法的结果，一般有一个predict()方法可以用来对新的数据点或数据点组成的RDD应用该模型进行预测。
+  每个Model都是训练算法的结果，一般有一个predict()方法可以用来对新的数据点或数据点组成的RDD应用该模型进行预测。  
+### 操作向量
+1. 向量分两种: 稠密向量与稀疏向量  
+   稠密向量把所有维度的值放在一个浮点数数组中。例如，一个100维度的向量会存储100个双精度浮点数。相比之下，稀疏向量只把各维度中非
+   零向量存储下来。当最多只有10%的元素为非零元素时，我们通常更倾向于使用稀疏向量。
+2. 创建向量的方式在各种语言中有一些细微差别。  
+*Py创建向量*
+```
+from numpy import array
+from pyspark.mllib.linalg import Vectors
+
+# 创建稠密向量<1.0, 2.0, 3.0>
+denseVec1 = array([1.0, 2.0, 3.0]) # NumPy数组可以直接传给MLlib
+denseVec2 = Vectors.dense([1.0, 2.0, 3.0]) # 或者使用Vectors类来创建
+
+# 创建稀疏向量<1.0, 0.0, 2.0, 0.0>
+# 向量的维度（4）以及非零位的位置和对应的值
+# 这些数据可以用一个dictionary来传递，或者使用两个分别代表位置和值的list 
+sparseVec1 = Vectors.sparse(4, {0: 1.0, 2: 2.0})
+sparseVec2 = Vectors.sparse(4, [0, 2], [1.0, 2.0]})
+```

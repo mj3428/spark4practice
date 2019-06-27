@@ -48,7 +48,7 @@ print "Prediction for negative test example: %g" % model.predic(negTest)
   （由一个浮点数表示），位置在mllib.regression包中
 * Rating  
   用户对一个产品的评分，在mllib.recommendation包中，用于产品推荐  
-* 各种model类
+* 各种model类  
   每个Model都是训练算法的结果，一般有一个predict()方法可以用来对新的数据点或数据点组成的RDD应用该模型进行预测。  
 ### 操作向量
 1. 向量分两种: 稠密向量与稀疏向量  
